@@ -1,0 +1,21 @@
+{
+  "name": "testing-samples",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^2.9.27",
+    "chai": "^2.3.0",
+    "chai-as-promised": "^5.0.0",
+    "express": "^4.12.4",
+    "supertest": "^1.0.1"
+  }
+}
