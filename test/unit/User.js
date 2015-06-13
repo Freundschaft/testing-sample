@@ -8,10 +8,19 @@ var sampleUser = require('../statics/user.json');
 
 describe('user', function () {
     describe('getAgeFromBirthday', function () {
-        it('should return 19 for the given date', function () {
+        it('should return an age between 0 and 150', function () {
             var birthday = new Date("December 17, 1995 03:24:00");
-            return User.getAgeFromBirthday(birthday).should.eventually.equal(19);
-            //Promise.resolve(2).should.eventually.be.within(Promise.resolve(1), Promise.resolve(6));
+            return User.getAgeFromBirthday(birthday).should.eventually.be.within(0, 150);
+        });
+
+        it('should throw an error if the input parameter is not a date', function () {
+            var invalidValue = 'foobar';
+            return User.getAgeFromBirthday(invalidValue).should.eventually.be.rejected;
+        });
+
+        it('should throw an error if the calculated age is outside the valid range', function () {
+            var birthday = new Date("December 17, 2500 03:24:00");
+            return User.getAgeFromBirthday(birthday).should.eventually.be.rejected;
         });
     });
 

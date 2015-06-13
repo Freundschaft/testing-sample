@@ -42,9 +42,14 @@ function getAgeFromBirthday(birthday) {
         if (birthday instanceof Date) {
             var ageDifMs = Date.now() - birthday.getTime();
             var ageDate = new Date(ageDifMs); // milliseconds from epoch
-            resolve(Math.abs(ageDate.getUTCFullYear() - 1970));
+            var age = Math.abs(ageDate.getUTCFullYear() - 1970);
+            if ((0 <= age) && (age <= 150)) {
+                return resolve(age);
+            } else {
+                return reject('age is not within the valid range')
+            }
         } else {
-            reject('parameter birthday is not a date');
+        return reject('parameter birthday is not a date');
         }
     });
 }

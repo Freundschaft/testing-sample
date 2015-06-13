@@ -5,6 +5,26 @@ var should = require('chai').should();
 describe('GET /users', function () {
     it('respond with json', function (done) {
         request(app)
+            .post('/user')
+            .send({
+                "birthday": "December 17, 1995 03:24:00"
+            })
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(function (res) {
+                res.body.should.have.property("firstName");
+                res.body.should.have.property("lastName");
+                res.body.should.have.property("birthday");
+                var birthday = new Date(res.body.birthday);
+                birthday.should.be.a('Date');
+            })
+            .expect(200, done);
+    })
+});
+
+describe('GET /users', function () {
+    it('respond with json', function (done) {
+        request(app)
             .get('/user')
             .set('Accept', 'application/json')
             .expect('Content-Type', /json/)
