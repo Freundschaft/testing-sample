@@ -2,6 +2,7 @@ var User = require('../../user.js');
 var chai = require("chai");
 var chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);
+var Promise = require('bluebird');
 var should = require('chai').should();
 var sampleUser = require('../statics/user.json');
 
@@ -10,7 +11,10 @@ describe('user', function () {
         context('if input parameter is valid', function () {
             it('should return an age between 0 and 150', function () {
                 var birthday = new Date("December 17, 1995 03:24:00");
-                return User.getAgeFromBirthday(birthday).should.eventually.be.within(0, 150);
+                return Promise.all([User.getAgeFromBirthday(birthday).then(function (age) {
+                    return age % 1;
+                }).should.eventually.be.equal(0),
+                    User.getAgeFromBirthday(birthday).should.eventually.be.within(0, 150)]);
             });
         });
 
