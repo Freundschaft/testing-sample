@@ -3,7 +3,6 @@ var chai = require("chai");
 var chaiAsPromised = require("chai-as-promised");
 chai.use(chaiAsPromised);
 var should = require('chai').should();
-var Promise = require('bluebird');
 var sampleUser = require('../statics/user.json');
 
 describe('user', function () {
@@ -22,6 +21,10 @@ describe('user', function () {
             });
             it('should throw an error', function () {
                 var invalidValue = '2349080912';
+                return User.getAgeFromBirthday(invalidValue).should.eventually.be.rejected;
+            });
+            it('should throw an error', function () {
+                var invalidValue = new Date('foobar');
                 return User.getAgeFromBirthday(invalidValue).should.eventually.be.rejected;
             });
         });

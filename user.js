@@ -39,7 +39,7 @@ function addFullName(user) {
 
 function getAgeFromBirthday(birthday) {
     return new Promise(function (resolve, reject) {
-        if (birthday instanceof Date) {
+        if ((birthday instanceof Date) && birthday != 'Invalid Date') {
             var ageDifMs = Date.now() - birthday.getTime();
             var ageDate = new Date(ageDifMs); // milliseconds from epoch
             var age = Math.abs(ageDate.getUTCFullYear() - 1970);
@@ -49,7 +49,7 @@ function getAgeFromBirthday(birthday) {
                 return reject('age is not within the valid range')
             }
         } else {
-        return reject('parameter birthday is not a date');
+        return reject('parameter birthday is not a valid date');
         }
     });
 }
